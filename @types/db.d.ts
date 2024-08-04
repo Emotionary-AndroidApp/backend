@@ -36,6 +36,7 @@ declare module "db" {
    *   `emotion` INT NOT NULL,
    *   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
    *   PRIMARY KEY (`id`),
+   *   UNIQUE (`userId`, `createdAt`),
    *   FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
    * );
    */
@@ -70,6 +71,7 @@ declare module "db" {
    *   `isDone` BOOLEAN NOT NULL DEFAULT FALSE,
    *   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
    *   PRIMARY KEY (`id`),
+   *   UNIQUE (`categoryId`, `content`),
    *   FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
    *   FOREIGN KEY (`categoryId`) REFERENCES `todo_category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
    * );
@@ -88,6 +90,7 @@ declare module "db" {
    *   `name` VARCHAR(20) NOT NULL,
    *   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
    *   PRIMARY KEY (`id`),
+   *   UNIQUE (`userId`, `name`),
    *   FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
    * );
    */
@@ -109,6 +112,7 @@ declare module "db" {
    *   `isDone` BOOLEAN NOT NULL DEFAULT FALSE,
    *   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
    *   PRIMARY KEY (`id`),
+   *   UNIQUE (`goalId`, `content`),
    *   FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
    *   FOREIGN KEY (`goalId`) REFERENCES `goal` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
    * );
@@ -133,6 +137,7 @@ declare module "db" {
    *   `end` DATE NOT NULL,
    *   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
    *   PRIMARY KEY (`id`),
+   *   UNIQUE (`userId`, `name`),
    *   FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
    * );
    */
