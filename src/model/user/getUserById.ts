@@ -4,7 +4,7 @@ import type { UserRow } from "db";
 import type { FieldPacket, RowDataPacket } from "mysql2";
 
 export interface GetUserByIdProps {
-  id: number;
+  id: string;
   password?: string;
 }
 
