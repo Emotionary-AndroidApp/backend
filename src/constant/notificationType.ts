@@ -1,4 +1,0 @@
-export enum NotificationType {
-  FRIEND_REQUEST = "FRIEND_REQUEST",
-  FRIEND_ACCEPTED = "FRIEND_ACCEPTED",
-}
