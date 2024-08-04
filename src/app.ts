@@ -14,11 +14,7 @@ axios.defaults.validateStatus = () => true;
 const port = isProduction ? 8080 : 8081;
 const app = express();
 
-const corsOptions: cors.CorsOptions = isProduction
-  ? {
-      origin: "https://example.com",
-    }
-  : {};
+const corsOptions: cors.CorsOptions = {};
 
 app.use(express.json());
 app.use(cors(corsOptions));
