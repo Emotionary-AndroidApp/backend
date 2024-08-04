@@ -21,7 +21,7 @@ import type { NecessaryResponse } from "api";
  * @description 회원가입 요청 body
  */
 export const SignupRequestBody = z.object({
-  email: userSchema.email,
+  id: userSchema.id,
   password: userSchema.password,
   name: userSchema.name,
 });
@@ -44,7 +44,7 @@ const signup: RequestHandler<
 
   try {
     const queryResult = await createUser({
-      email: req.body.email,
+      id: req.body.id,
       name: req.body.name,
       hashedPassword,
       salt,

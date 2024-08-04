@@ -4,14 +4,16 @@ import type { ResultSetHeader } from "mysql2";
 
 interface CreateUserProps {
   id: string;
-  password: string;
+  hashedPassword: string;
+  salt: string;
   name: string;
   picture?: string;
 }
 
 export default async function createUser({
   id,
-  password,
+  hashedPassword,
+  salt,
   name,
   picture,
 }: CreateUserProps) {
@@ -19,7 +21,8 @@ export default async function createUser({
     "INSERT INTO user SET ?",
     {
       id,
-      password,
+      hashedPassword,
+      salt,
       name,
       picture,
     }
