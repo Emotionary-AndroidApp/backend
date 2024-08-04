@@ -8,7 +8,7 @@ declare module "db" {
     createdAt: string;
   }
   /**
-   * CREATE TABLE `diary` (
+   * CREATE TABLE `user` (
    *   `id` CHAR(36) NOT NULL,
    *   `password` CHAR(64) NOT NULL,
    *   `salt` CHAR(64) NOT NULL,
@@ -28,14 +28,15 @@ declare module "db" {
     createdAt: string;
   }
   /**
-   * CREATE TABLE `diary_picture` (
+   * CREATE TABLE `diary` (
    *   `id` INT NOT NULL AUTO_INCREMENT,
    *   `userId` CHAR(36) NOT NULL,
    *   `title` VARCHAR(100) NOT NULL,
    *   `content` TEXT NOT NULL,
    *   `emotion` INT NOT NULL,
    *   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-   *   PRIMARY KEY (`id`)
+   *   PRIMARY KEY (`id`),
+   *   FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
    * );
    */
 
