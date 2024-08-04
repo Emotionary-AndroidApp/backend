@@ -13,12 +13,12 @@ export default async function getUserById({ id, password }: GetUserByIdProps) {
 
   if (password === undefined) {
     queryResult = await db.query<(UserRow & RowDataPacket)[]>(
-      "SELECT id, email, name, password, salt FROM user WHERE ?",
+      "SELECT id, password, salt, name, picture, createdAt FROM user WHERE ?",
       { id }
     );
   } else {
     queryResult = await db.query<(UserRow & RowDataPacket)[]>(
-      "SELECT id, email, name, password, salt FROM user WHERE ? AND ?",
+      "SELECT id, password, salt, name, picture, createdAt FROM user WHERE ? AND ?",
       [{ id }, { password }]
     );
   }
