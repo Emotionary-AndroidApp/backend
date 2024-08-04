@@ -3,25 +3,25 @@ import db from "model";
 import type { ResultSetHeader } from "mysql2";
 
 interface CreateUserProps {
-  email: string;
-  hashedPassword: string;
-  salt: string;
+  id: string;
+  password: string;
   name: string;
+  picture?: string;
 }
 
 export default async function createUser({
-  email,
-  hashedPassword,
-  salt,
+  id,
+  password,
   name,
+  picture,
 }: CreateUserProps) {
   const queryResult = await db.query<ResultSetHeader>(
     "INSERT INTO user SET ?",
     {
-      email,
-      password: hashedPassword,
-      salt,
+      id,
+      password,
       name,
+      picture,
     }
   );
 
