@@ -25,6 +25,7 @@ declare module "db" {
     title: string;
     content: string;
     emotion: number;
+    picture: string;
     createdAt: string;
   }
   /**
@@ -34,23 +35,11 @@ declare module "db" {
    *   `title` VARCHAR(100) NOT NULL,
    *   `content` TEXT NOT NULL,
    *   `emotion` INT NOT NULL,
+   *   `picture` VARCHAR(100),
    *   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
    *   PRIMARY KEY (`id`),
    *   UNIQUE (`userId`, `createdAt`),
    *   FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-   * );
-   */
-
-  interface DiaryPictureRow {
-    diaryId: number;
-    picture: string;
-  }
-  /**
-   * CREATE TABLE `diary_picture` (
-   *   `diaryId` INT NOT NULL,
-   *   `picture` VARCHAR(100) NOT NULL,
-   *   PRIMARY KEY (`diaryId`, `picture`),
-   *   FOREIGN KEY (`diaryId`) REFERENCES `diary` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
    * );
    */
 
