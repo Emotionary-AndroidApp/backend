@@ -1,4 +1,4 @@
-import MysqlErrorKeys from "mysql-error-keys";
+import fs from "fs";
 import { randomBytes } from "crypto";
 import { QueryError } from "mysql2";
 import { z } from "zod";
@@ -16,14 +16,15 @@ import userSchema from "schema/user";
 
 import type { RequestHandler } from "express";
 import type { NecessaryResponse } from "api";
+import path from "path";
 
 /**
  * @description 회원가입 요청 body
  */
 export const SignupRequestBody = z.object({
-  id: userSchema.id,
-  password: userSchema.password,
-  name: userSchema.name,
+  userID: userSchema.id,
+  userPassword: userSchema.password,
+  userName: userSchema.name,
 });
 
 /**
@@ -39,28 +40,44 @@ const signup: RequestHandler<
   ResponseBody,
   z.infer<typeof SignupRequestBody>
 > = async function (req, res, next) {
+  // 비밀번호 해싱
   const salt = randomBytes(32).toString("base64");
-  const hashedPassword = getSaltedHash(req.body.password, salt);
+  const hashedPassword = getSaltedHash(req.body.userPassword, salt);
+
+  // 파일 이름
+  const pictureFileName = req.file
+    ? `${Date.now()}_${req.file.originalname}`
+    : undefined;
 
   try {
     const queryResult = await createUser({
-      id: req.body.id,
-      name: req.body.name,
+      id: req.body.userID,
+      name: req.body.userName,
+      picture: req.file ? `/file/user/${pictureFileName}` : undefined,
       hashedPassword,
       salt,
     });
 
     if (queryResult[0].affectedRows === 0)
-      return next(new ServerError("사용자를 생성할 수 없어요."));
+      return next(new ServerError("사용자를 생성할 수 없습니다."));
   } catch (error) {
     if (error instanceof Error) {
-      if ((error as QueryError).code === MysqlErrorKeys.ER_DUP_ENTRY)
-        return next(new DuplicationError(["이름", "이메일"]));
+      if ((error as QueryError).code === "ER_DUP_ENTRY")
+        return next(new DuplicationError(["아이디", "닉네임"]));
     }
     throw error;
   }
+
+  // 회원가입 성공 시 프로필 사진 파일 저장
+  if (req.file && pictureFileName) {
+    fs.writeFileSync(
+      path.resolve("files/user", pictureFileName),
+      req.file.buffer
+    );
+  }
+
   return res.status(200).json({
-    message: "사용자가 생성됐어요.",
+    message: "회원가입에 성공하였습니다.",
     code: ResponseCode.SUCCESS,
   });
 };

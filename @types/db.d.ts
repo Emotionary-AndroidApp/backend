@@ -10,7 +10,7 @@ declare module "db" {
   /**
    * CREATE TABLE `user` (
    *   `id` CHAR(36) NOT NULL,
-   *   `password` CHAR(64) NOT NULL,
+   *   `password` CHAR(128) NOT NULL,
    *   `salt` CHAR(64) NOT NULL,
    *   `name` VARCHAR(20) NOT NULL,
    *   `picture` VARCHAR(100) NOT NULL,

@@ -11,8 +11,10 @@ export default class DuplicationError extends UserError {
       pathString += ` 또는 ${path.at(-1)}`;
     }
 
-    const pathStringAsSubject = `${pathString}${hasJongseong(pathString) ? "이" : "가"}`;
-    super(`${pathStringAsSubject} 이미 사용 중이에요.`, 400);
+    const pathStringAsSubject = `${pathString}${
+      hasJongseong(pathString) ? "이" : "가"
+    }`;
+    super(`${pathStringAsSubject} 이미 사용 중입니다.`, 400);
     this.name = "DuplicationError";
   }
 }

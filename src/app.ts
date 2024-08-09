@@ -4,21 +4,23 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 import apiRouter from "routes/api";
+import fileRouter from "routes/file";
 
+// 환경 변수 설정
 dotenv.config();
 const isProduction = process.env.NODE_ENV === "production";
 
+// axios 설정
 axios.defaults.validateStatus = () => true;
 
-// api 등록
-const port = isProduction ? 8080 : 8081;
+// app 설정
 const app = express();
-
+const port = isProduction ? 8080 : 8081;
 const corsOptions: cors.CorsOptions = {};
 
-app.use(express.json());
+// CORS 및 라우터 등록
 app.use(cors(corsOptions));
-
+app.use("/file", fileRouter);
 app.use("/api", apiRouter);
 
 app.listen(port, () => {

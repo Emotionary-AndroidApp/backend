@@ -24,13 +24,10 @@ const password = z
     message: "비밀번호는 영어, 숫자를 조합하여야 해요.",
   });
 
-const picture = z.string().url();
-
 const userSchema = {
   id,
   name,
   password,
-  picture,
 };
 
 export default userSchema;

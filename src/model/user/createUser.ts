@@ -21,7 +21,7 @@ export default async function createUser({
     "INSERT INTO user SET ?",
     {
       id,
-      hashedPassword,
+      password: hashedPassword,
       salt,
       name,
       picture,
