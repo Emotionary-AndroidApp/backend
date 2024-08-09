@@ -2,24 +2,24 @@ import db from "model";
 
 import type { ResultSetHeader } from "mysql2";
 
-export interface DeleteGoalChecklistProps {
+export interface DeleteTodoChecklistProps {
   userId: string;
   id: number;
 }
 
-export default async function deleteGoalChecklist({
+export default async function deleteTodoChecklist({
   userId,
   id,
-}: DeleteGoalChecklistProps) {
+}: DeleteTodoChecklistProps) {
   const queryResult = await db.query<ResultSetHeader>(
     `
-      DELETE FROM goal_checklist checklist
+      DELETE FROM todo_checklist checklist
       WHERE
         id = ? AND
         EXISTS (
           SELECT 1
-          FROM goal
-          WHERE goal.id = checklist.goalId AND goal.userId = ?
+          FROM todo_category category
+          WHERE category.id = checklist.categoryId AND category.userId = ?
         )
       LIMIT 1
     `,
