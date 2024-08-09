@@ -1,39 +1,39 @@
 import db from "model";
 
 import type { ResultSetHeader } from "mysql2";
-import type { TodoChecklistRow } from "db";
+import type { GoalChecklistRow } from "db";
 
 type ChecklistPatch = Pick<
-  TodoChecklistRow,
-  "categoryId" | "content" | "isDone"
+  GoalChecklistRow,
+  "goalId" | "content" | "isDone"
 >;
 
-interface EditTodoChecklistProps {
+interface EditGoalChecklistProps {
   userId: number;
   id: number;
   checklistPatch: Partial<ChecklistPatch>;
 }
 
-export default async function editTodoChecklist({
+export default async function editGoalChecklist({
   userId,
   id,
   checklistPatch,
-}: EditTodoChecklistProps) {
+}: EditGoalChecklistProps) {
   if (Object.keys(checklistPatch).length === 0)
     throw new Error("checklistPatch is empty");
 
   const queryResult = await db.query<ResultSetHeader>(
     `
-      UPDATE todo_checklist checklist
+      UPDATE goal_checklist checklist
       SET ?
       WHERE
         checklist.id = ? AND
         EXISTS (
           SELECT 1
-          FROM todo_category category
+          FROM goal
           WHERE
-            category.id = checklist.categoryId AND
-            category.userId = ?
+            goal.id = checklist.goalId AND
+            goal.userId = ?
         )
       LIMIT 1
     `,

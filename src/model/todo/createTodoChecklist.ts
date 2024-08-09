@@ -3,7 +3,7 @@ import db from "model";
 import type { ResultSetHeader } from "mysql2";
 
 interface CreateTodoChecklistProps {
-  userId: string;
+  userId: number;
   categoryId: number;
   content: string;
   isDone: boolean;
@@ -18,14 +18,18 @@ export default async function createTodoChecklist({
   date,
 }: CreateTodoChecklistProps) {
   const queryResult = await db.query<ResultSetHeader>(
-    "INSERT INTO todo_checklist SET ?",
-    {
-      userId,
-      categoryId,
-      content,
-      isDone,
-      date,
-    }
+    `
+      INSERT INTO todo_checklist (categoryId, content, isDone, date)
+      SELECT
+        ?, ?, ?, ?
+      WHERE EXISTS (
+        SELECT 1
+        FROM todo_category
+        WHERE categoryId = ?
+        AND userId = ?
+      )
+    `,
+    [categoryId, content, isDone, date, categoryId, userId]
   );
 
   return queryResult;

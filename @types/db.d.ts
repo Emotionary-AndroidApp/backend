@@ -47,7 +47,6 @@ declare module "db" {
 
   interface TodoChecklistRow {
     id: number;
-    userId: string;
     categoryId: number;
     content: string;
     isDone: boolean;
@@ -57,7 +56,6 @@ declare module "db" {
   /**
    * CREATE TABLE `todo_checklist` (
    *   `id` INT NOT NULL AUTO_INCREMENT,
-   *   `userId` CHAR(36) NOT NULL,
    *   `categoryId` INT NOT NULL,
    *   `content` VARCHAR(100) NOT NULL,
    *   `isDone` BOOLEAN NOT NULL DEFAULT FALSE,
@@ -65,7 +63,6 @@ declare module "db" {
    *   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
    *   PRIMARY KEY (`id`),
    *   UNIQUE (`categoryId`, `content`),
-   *   FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
    *   FOREIGN KEY (`categoryId`) REFERENCES `todo_category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
    * );
    */
@@ -90,7 +87,6 @@ declare module "db" {
 
   interface GoalChecklistRow {
     id: number;
-    userId: string;
     goalId: number;
     content: string;
     isDone: boolean;
@@ -99,14 +95,12 @@ declare module "db" {
   /**
    * CREATE TABLE `goal_checklist` (
    *   `id` INT NOT NULL AUTO_INCREMENT,
-   *   `userId` CHAR(36) NOT NULL,
    *   `goalId` INT NOT NULL,
    *   `content` VARCHAR(100) NOT NULL,
    *   `isDone` BOOLEAN NOT NULL DEFAULT FALSE,
    *   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
    *   PRIMARY KEY (`id`),
    *   UNIQUE (`goalId`, `content`),
-   *   FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
    *   FOREIGN KEY (`goalId`) REFERENCES `goal` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
    * );
    */
