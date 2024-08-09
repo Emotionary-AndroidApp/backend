@@ -17,7 +17,7 @@ import type { NecessaryResponse } from "api";
 /**
  * @description 로그인 요청 body
  */
-export const LoginBody = z.object({
+export const LoginRequestBody = z.object({
   userID: userSchema.id,
   userPassword: userSchema.password,
 });
@@ -50,7 +50,7 @@ interface ResBody extends NecessaryResponse {
 const login: RequestHandler<
   {},
   ResBody,
-  z.infer<typeof LoginBody>
+  z.infer<typeof LoginRequestBody>
 > = async function (req, res, next) {
   // 사용자 salt 가져오기
   const salt = await getUserSalt(req.body.userID);
@@ -94,7 +94,7 @@ const login: RequestHandler<
       userName: user.name,
       userProfile: user.picture,
     },
-    message: "로그인에 성공했어요.",
+    message: "로그인에 성공하였습니다.",
     code: ResponseCode.SUCCESS,
   });
 };
