@@ -6,19 +6,15 @@ import type { RowDataPacket } from "mysql2";
 export interface GetTodoChecklistsProps {
   userId: string;
   categoryId: number;
-  offset: number;
-  limit: number;
 }
 
 export default async function getTodoChecklists({
   userId,
   categoryId,
-  offset,
-  limit,
 }: GetTodoChecklistsProps) {
   const queryResult = await db.query<(TodoCategoryRow & RowDataPacket)[]>(
-    "SELECT id, userId, categoryId, content, isDone, date, createdAt FROM todo_checklist WHERE ? LIMIT ? OFFSET ? ORDER BY categoryId",
-    [{ userId, categoryId }, limit, offset]
+    "SELECT id, userId, categoryId, content, isDone, date, createdAt FROM todo_checklist WHERE ? ORDER BY categoryId",
+    { userId, categoryId }
   );
 
   return queryResult;
