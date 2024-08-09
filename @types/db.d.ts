@@ -26,6 +26,7 @@ declare module "db" {
     content: string;
     emotion: number;
     picture: string;
+    date: string;
     createdAt: string;
   }
   /**
@@ -36,9 +37,10 @@ declare module "db" {
    *   `content` TEXT NOT NULL,
    *   `emotion` INT NOT NULL,
    *   `picture` VARCHAR(100),
+   *   `date` DATE NOT NULL,
    *   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
    *   PRIMARY KEY (`id`),
-   *   UNIQUE (`userId`, `createdAt`),
+   *   UNIQUE (`userId`, `date`),
    *   FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
    * );
    */
@@ -49,6 +51,7 @@ declare module "db" {
     categoryId: number;
     content: string;
     isDone: boolean;
+    date: string;
     createdAt: string;
   }
   /**
@@ -58,6 +61,7 @@ declare module "db" {
    *   `categoryId` INT NOT NULL,
    *   `content` VARCHAR(100) NOT NULL,
    *   `isDone` BOOLEAN NOT NULL DEFAULT FALSE,
+   *   `date` DATE NOT NULL,
    *   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
    *   PRIMARY KEY (`id`),
    *   UNIQUE (`categoryId`, `content`),

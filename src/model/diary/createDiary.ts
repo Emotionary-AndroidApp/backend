@@ -7,6 +7,7 @@ interface CreateDiaryProps {
   title: string;
   content: string;
   emotion: number;
+  date: string;
   picture?: string;
 }
 
@@ -15,6 +16,7 @@ export default async function createDiary({
   title,
   content,
   emotion,
+  date,
   picture
 }: CreateDiaryProps) {
   const queryResult = await db.query<ResultSetHeader>(
@@ -24,6 +26,7 @@ export default async function createDiary({
       title,
       content,
       emotion,
+      date,
       picture
     }
   );

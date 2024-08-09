@@ -17,7 +17,7 @@ export default async function getTodoChecklists({
   limit,
 }: GetTodoChecklistsProps) {
   const queryResult = await db.query<(TodoCategoryRow & RowDataPacket)[]>(
-    "SELECT id, userId, categoryId, content, isDone, createdAt FROM todo_checklist WHERE ? LIMIT ? OFFSET ?",
+    "SELECT id, userId, categoryId, content, isDone, date, createdAt FROM todo_checklist WHERE ? LIMIT ? OFFSET ? ORDER BY categoryId",
     [{ userId, categoryId }, limit, offset]
   );
 

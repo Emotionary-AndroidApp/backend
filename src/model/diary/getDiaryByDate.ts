@@ -13,8 +13,9 @@ export default async function getDiaryByDate({
   userId,
 }: GetDiaryByDateProps) {
   const queryResult = await db.query<(DiaryRow & RowDataPacket)[]>(
-    "SELECT id, userId, title, content, emotion, picture, createdAt FROM diary WHERE ? AND ?",
-    [{ date }, { userId }]  );
+    "SELECT id, userId, title, content, emotion, picture, date, createdAt FROM diary WHERE ? AND ?",
+    [{ date }, { userId }]
+  );
 
   return queryResult;
 }
