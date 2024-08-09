@@ -13,7 +13,7 @@ declare module "db" {
    *   `password` CHAR(128) NOT NULL,
    *   `salt` CHAR(64) NOT NULL,
    *   `name` VARCHAR(20) NOT NULL,
-   *   `picture` VARCHAR(100) NOT NULL,
+   *   `picture` VARCHAR(100),
    *   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
    *   PRIMARY KEY (`id`)
    * );

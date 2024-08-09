@@ -1,5 +1,4 @@
 import express from "express";
-import path from "path";
 import multer from "multer";
 
 import validateRequest from "middleware/validate/validateRequest";
@@ -26,7 +25,7 @@ const upload = multer({
 
 // 컨트롤러
 userRouter.post(
-  "",
+  "/signup",
   upload.single("userProfile"),
   validateRequest({ body: SignupRequestBody }),
   signup
