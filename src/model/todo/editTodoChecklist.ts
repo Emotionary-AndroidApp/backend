@@ -9,11 +9,13 @@ type ChecklistPatch = Pick<
 >;
 
 interface EditTodoChecklistProps {
+  userId: number;
   id: number;
   checklistPatch: Partial<ChecklistPatch>;
 }
 
 export default async function editTodoChecklist({
+  userId,
   id,
   checklistPatch,
 }: EditTodoChecklistProps) {
@@ -21,8 +23,8 @@ export default async function editTodoChecklist({
     throw new Error("checklistPatch is empty");
 
   const queryResult = await db.query<ResultSetHeader>(
-    "UPDATE todo_checklist SET ? WHERE id = ?",
-    [checklistPatch, id]
+    "UPDATE todo_checklist SET ? WHERE id = ? AND userId = ?",
+    [checklistPatch, id, userId]
   );
 
   return queryResult;

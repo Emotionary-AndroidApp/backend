@@ -6,17 +6,22 @@ import type { DiaryRow } from "db";
 type DiaryPatch = Pick<DiaryRow, "title" | "content" | "emotion">;
 
 interface EditDiaryProps {
+  userId: number;
   id: number;
   diaryPatch: Partial<DiaryPatch>;
 }
 
-export default async function editDiary({ id, diaryPatch }: EditDiaryProps) {
+export default async function editDiary({
+  userId,
+  id,
+  diaryPatch,
+}: EditDiaryProps) {
   if (Object.keys(diaryPatch).length === 0)
     throw new Error("diaryPatch is empty");
 
   const queryResult = await db.query<ResultSetHeader>(
-    "UPDATE diary SET ? WHERE id = ?",
-    [diaryPatch, id]
+    "UPDATE diary SET ? WHERE id = ? AND userId = ?",
+    [diaryPatch, id, userId]
   );
 
   return queryResult;
