@@ -1,4 +1,5 @@
 import fs from "fs";
+import path from "path";
 import { randomBytes } from "crypto";
 import { QueryError } from "mysql2";
 import { z } from "zod";
@@ -16,7 +17,6 @@ import userSchema from "schema/user";
 
 import type { RequestHandler } from "express";
 import type { NecessaryResponse } from "api";
-import path from "path";
 
 /**
  * @description 회원가입 요청 body
