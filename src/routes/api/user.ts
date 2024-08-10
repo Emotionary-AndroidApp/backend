@@ -28,7 +28,7 @@ const upload = multer({
 
 // 컨트롤러
 userRouter.post(
-  "/signup",
+  "/",
   upload.single("userProfile"),
   validateRequest({ body: SignupRequestBody }),
   signup
@@ -46,8 +46,8 @@ userRouter.get(
 userRouter.get(
   "/home",
   validateRequest({ query: GetHomeRequestQuery }),
-  getHome 
-)
+  getHome
+);
 
 // 404 핸들 미들웨어
 userRouter.use(apiNotFoundErrorHandler);

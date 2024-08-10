@@ -1,18 +1,9 @@
-import fs from "fs";
-import path from "path";
-import { randomBytes } from "crypto";
-import { QueryError } from "mysql2";
 import { z } from "zod";
 
 import ResponseCode from "constant/responseCode";
 
 import getMainGoal from "model/goal/getMainGoal";
 import getEmotions from "model/diary/getEmotions";
-
-import ServerError from "error/ServerError";
-import DuplicationError from "error/user/DuplicationError";
-
-import getSaltedHash from "util/getSaltedHash";
 
 import type { RequestHandler } from "express";
 import type { NecessaryResponse } from "api";
