@@ -1,6 +1,7 @@
 import express from "express";
 
 import userRouter from "./user";
+import authRouter from "./auth";
 
 import errorHandler from "middleware/error/errorHandler";
 import userErrorHandler from "middleware/error/userErrorHandler";
@@ -13,6 +14,7 @@ const apiRouter = express.Router();
 
 // 라우터
 apiRouter.use("/user", trimBodyString, userRouter);
+apiRouter.use("/auth", trimBodyString, authRouter);
 
 // 404 핸들 미들웨어
 apiRouter.use(apiNotFoundErrorHandler);

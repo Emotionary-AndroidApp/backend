@@ -5,7 +5,6 @@ import validateRequest from "middleware/validate/validateRequest";
 import apiNotFoundErrorHandler from "middleware/error/apiNotFoundErrorHandler";
 
 import signup, { SignupRequestBody } from "controller/user/signup";
-import login, { LoginRequestBody } from "controller/auth/login";
 
 const userRouter = express.Router();
 
@@ -30,12 +29,6 @@ userRouter.post(
   upload.single("userProfile"),
   validateRequest({ body: SignupRequestBody }),
   signup
-);
-userRouter.post(
-  "/login",
-  express.json(),
-  validateRequest({ body: LoginRequestBody }),
-  login
 );
 
 // 404 핸들 미들웨어
