@@ -15,7 +15,7 @@ axios.defaults.validateStatus = () => true;
 
 // app 설정
 const app = express();
-const port = isProduction ? 8080 : 8081;
+const port = 80;
 const corsOptions: cors.CorsOptions = {};
 
 // CORS 및 라우터 등록
