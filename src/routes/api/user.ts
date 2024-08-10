@@ -5,6 +5,7 @@ import validateRequest from "middleware/validate/validateRequest";
 import apiNotFoundErrorHandler from "middleware/error/apiNotFoundErrorHandler";
 
 import signup, { SignupRequestBody } from "controller/user/signup";
+import checkId, { CheckIdRequestQuery } from "controller/user/checkId";
 
 const userRouter = express.Router();
 
@@ -29,6 +30,11 @@ userRouter.post(
   upload.single("userProfile"),
   validateRequest({ body: SignupRequestBody }),
   signup
+);
+userRouter.get(
+  "/check/id",
+  validateRequest({ query: CheckIdRequestQuery }),
+  checkId
 );
 
 // 404 핸들 미들웨어
