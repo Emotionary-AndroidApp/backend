@@ -6,6 +6,7 @@ import apiNotFoundErrorHandler from "middleware/error/apiNotFoundErrorHandler";
 
 import signup, { SignupRequestBody } from "controller/user/signup";
 import checkId, { CheckIdRequestQuery } from "controller/user/checkId";
+import checkName, { CheckNameRequestQuery } from "controller/user/checkName";
 
 const userRouter = express.Router();
 
@@ -35,6 +36,11 @@ userRouter.get(
   "/check/id",
   validateRequest({ query: CheckIdRequestQuery }),
   checkId
+);
+userRouter.get(
+  "/check/name",
+  validateRequest({ query: CheckNameRequestQuery }),
+  checkName
 );
 
 // 404 핸들 미들웨어
