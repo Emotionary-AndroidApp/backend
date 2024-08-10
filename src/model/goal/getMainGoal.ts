@@ -1,6 +1,10 @@
 import db from "model";
 
-import type { TodoCategoryRow } from "db";
+interface MainGoalRow extends GoalRow {
+  progress: number;
+}
+
+import type { GoalRow } from "db";
 import type { RowDataPacket } from "mysql2";
 
 export interface GetMainGoalProps {
@@ -8,9 +12,27 @@ export interface GetMainGoalProps {
 }
 
 export default async function getMainGoal({ userId }: GetMainGoalProps) {
-  const queryResult = await db.query<(TodoCategoryRow & RowDataPacket)[]>(
-    "SELECT id, userId, name, isMain, start, end, createdAt FROM goal WHERE ? LIMIT 1",
-    [{ userId, isMain: true }]
+  const queryResult = await db.query<(MainGoalRow & RowDataPacket)[]>(
+    `
+      SELECT
+        goal.id,
+        goal.userId,
+        goal.name,
+        goal.isMain,
+        goal.start,
+        goal.end,
+        goal.createdAt,
+        SUM(checklist.isDone) / COUNT(checklist.id) AS progress
+      FROM
+        goal
+      LEFT JOIN
+        goal_checklist AS checklist
+      ON
+        goal.id = checklist.goalId
+      WHERE
+        goal.userId = ? AND goal.isMain = true
+    `,
+    [userId]
   );
 
   return queryResult;
