@@ -4,7 +4,7 @@ declare module "db" {
     password: string;
     salt: string;
     name: string;
-    picture: string;
+    picture: string | null;
     createdAt: string;
   }
   /**

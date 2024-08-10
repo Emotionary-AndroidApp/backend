@@ -92,7 +92,7 @@ const login: RequestHandler<
     user: {
       userID: user.id,
       userName: user.name,
-      userProfile: user.picture,
+      userProfile: user.picture ?? undefined,
     },
     message: "로그인에 성공하였습니다.",
     code: ResponseCode.SUCCESS,
