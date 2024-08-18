@@ -37,22 +37,26 @@ userRouter.post(
 );
 userRouter.get(
   "/check/id",
+  express.json(),
   validateRequest({ query: CheckIdRequestQuery }),
   checkId
 );
 userRouter.get(
   "/check/name",
+  express.json(),
   validateRequest({ query: CheckNameRequestQuery }),
   checkName
 );
 userRouter.get(
   "/home",
+  express.json(),
   requireUserToken,
   validateRequest({ query: GetHomeRequestQuery }),
   getHome
 );
 userRouter.get(
   "/profile",
+  express.json(),
   requireUserToken,
   validateRequest({ query: GetMyRequestQuery }),
   getMy

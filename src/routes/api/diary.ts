@@ -38,12 +38,14 @@ diaryRouter.post(
 );
 diaryRouter.patch(
   "/",
+  express.json(),
   requireUserToken,
   validateRequest({ body: PatchDiaryRequestBody }),
   patchDiary
 );
 diaryRouter.get(
   "/detail",
+  express.json(),
   requireUserToken,
   validateRequest({ query: GetDiaryDetailQuery }),
   getDiaryDetail
