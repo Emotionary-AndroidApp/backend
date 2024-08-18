@@ -11,5 +11,10 @@ fileRouter.use(
   requireUserToken,
   express.static(path.resolve("files/user"))
 );
+fileRouter.use(
+  "/diary",
+  requireUserToken,
+  express.static(path.resolve("files/diary"))
+);
 
 export default fileRouter;
