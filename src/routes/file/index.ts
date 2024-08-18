@@ -6,11 +6,7 @@ import requireUserToken from "middleware/token/requireUserToken";
 const fileRouter = express.Router();
 
 // 정적 파일 제공
-fileRouter.use(
-  "/user",
-  requireUserToken,
-  express.static(path.resolve("files/user"))
-);
+fileRouter.use("/user", express.static(path.resolve("files/user")));
 fileRouter.use(
   "/diary",
   requireUserToken,
