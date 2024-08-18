@@ -6,6 +6,7 @@ import apiNotFoundErrorHandler from "middleware/error/apiNotFoundErrorHandler";
 import requireUserToken from "middleware/token/requireUserToken";
 
 import writeDiary, { WriteDiaryRequestBody } from "controller/diary/writeDiary";
+import patchDiary, { PatchDiaryRequestBody } from "controller/diary/patchDiary";
 
 const diaryRouter = express.Router();
 
@@ -28,8 +29,15 @@ const upload = multer({
 diaryRouter.post(
   "/",
   upload.single("diaryImage"),
+  requireUserToken,
   validateRequest({ body: WriteDiaryRequestBody }),
   writeDiary
+);
+diaryRouter.patch(
+  "/",
+  requireUserToken,
+  validateRequest({ body: PatchDiaryRequestBody }),
+  patchDiary
 );
 
 // 404 핸들 미들웨어
