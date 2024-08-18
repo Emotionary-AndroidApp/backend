@@ -3,11 +3,13 @@ import multer from "multer";
 
 import validateRequest from "middleware/validate/validateRequest";
 import apiNotFoundErrorHandler from "middleware/error/apiNotFoundErrorHandler";
+import requireUserToken from "middleware/token/requireUserToken";
 
 import signup, { SignupRequestBody } from "controller/user/signup";
 import checkId, { CheckIdRequestQuery } from "controller/user/checkId";
 import checkName, { CheckNameRequestQuery } from "controller/user/checkName";
 import getHome, { GetHomeRequestQuery } from "controller/user/getHome";
+import getMy, { GetMyRequestQuery } from "controller/user/getMy";
 
 const userRouter = express.Router();
 
@@ -45,8 +47,15 @@ userRouter.get(
 );
 userRouter.get(
   "/home",
+  requireUserToken,
   validateRequest({ query: GetHomeRequestQuery }),
   getHome
+);
+userRouter.get(
+  "/profile",
+  requireUserToken,
+  validateRequest({ query: GetMyRequestQuery }),
+  getMy
 );
 
 // 404 핸들 미들웨어
