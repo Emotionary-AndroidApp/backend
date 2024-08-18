@@ -10,6 +10,7 @@ import patchDiary, { PatchDiaryRequestBody } from "controller/diary/patchDiary";
 import getDiaryDetail, {
   GetDiaryDetailQuery,
 } from "controller/diary/getDiaryDetail";
+import searchDiary, { SearchDiaryQuery } from "controller/diary/searchDiary";
 
 const diaryRouter = express.Router();
 
@@ -49,6 +50,13 @@ diaryRouter.get(
   requireUserToken,
   validateRequest({ query: GetDiaryDetailQuery }),
   getDiaryDetail
+);
+diaryRouter.get(
+  "/",
+  express.json(),
+  requireUserToken,
+  validateRequest({ query: SearchDiaryQuery }),
+  searchDiary
 );
 
 // 404 핸들 미들웨어
