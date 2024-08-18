@@ -1,14 +1,8 @@
-import fs from "fs";
-import path from "path";
-import { QueryError } from "mysql2";
 import { z } from "zod";
 
 import ResponseCode from "constant/responseCode";
 
 import editDiary from "model/diary/editDiary";
-
-import ServerError from "error/ServerError";
-import DuplicationError from "error/user/DuplicationError";
 
 import diarySchema from "schema/diary";
 

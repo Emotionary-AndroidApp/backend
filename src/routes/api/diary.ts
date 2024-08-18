@@ -7,6 +7,9 @@ import requireUserToken from "middleware/token/requireUserToken";
 
 import writeDiary, { WriteDiaryRequestBody } from "controller/diary/writeDiary";
 import patchDiary, { PatchDiaryRequestBody } from "controller/diary/patchDiary";
+import getDiaryDetail, {
+  GetDiaryDetailQuery,
+} from "controller/diary/getDiaryDetail";
 
 const diaryRouter = express.Router();
 
@@ -38,6 +41,12 @@ diaryRouter.patch(
   requireUserToken,
   validateRequest({ body: PatchDiaryRequestBody }),
   patchDiary
+);
+diaryRouter.get(
+  "/detail",
+  requireUserToken,
+  validateRequest({ query: GetDiaryDetailQuery }),
+  getDiaryDetail
 );
 
 // 404 핸들 미들웨어
