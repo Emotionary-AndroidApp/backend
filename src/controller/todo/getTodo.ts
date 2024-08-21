@@ -2,7 +2,6 @@ import { z } from "zod";
 
 import ResponseCode from "constant/responseCode";
 
-import getDiaryByDate from "model/diary/getDiaryByDate";
 import getTodoChecklistsByDate, {
   TodoChecklistByDateRow,
 } from "model/todo/getTodoChecklistsByDate";
@@ -13,14 +12,20 @@ import type { NecessaryResponse } from "api";
 import commonSchema from "schema/common";
 
 import type { RowDataPacket } from "mysql2/typings/mysql/lib/protocol/packets/RowDataPacket";
-import type { DiaryRow } from "db";
 
 /**
- * @description 다이어리 상세 조회 요청 query
+ * @description 투두 조회 요청 query
  */
-export const GetDiaryDetailQuery = z.object({
-  diaryDate: commonSchema.date,
+export const getTodoQuery = z.object({
+  todoDate: commonSchema.date,
 });
+
+/**
+ * @description 투두 조회 응답 body
+ */
+interface ResponseBody extends NecessaryResponse {
+  todos: Todo[];
+}
 
 interface Todo {
   todoCategory: string;
@@ -35,24 +40,13 @@ interface Checklist {
 }
 
 /**
- * @description 다이어리 상세 조회 응답 body
+ * @description 투두 조회 요청을 처리하는 핸들러
  */
-interface ResponseBody extends NecessaryResponse {
-  diaryTitle: string;
-  diaryEmotion: number;
-  diaryDetail: string;
-  diaryImage?: string;
-  todos: Todo[];
-}
-
-/**
- * @description 다이어리 상세 조회 요청을 처리하는 핸들러
- */
-const getDiaryDetail: RequestHandler<
+const getTodo: RequestHandler<
   {},
   Partial<ResponseBody>,
   {},
-  z.infer<typeof GetDiaryDetailQuery>
+  z.infer<typeof getTodoQuery>
 > = async function (req, res, next) {
   // 아이디 불러오기
   const userId = req.userId;
@@ -62,25 +56,6 @@ const getDiaryDetail: RequestHandler<
       code: ResponseCode.FAILURE,
     });
 
-  // 일기 불러오기
-  let diary: DiaryRow & RowDataPacket;
-  {
-    const queryResult = await getDiaryByDate({
-      userId,
-      date: req.query.diaryDate,
-    });
-    const diarys = queryResult[0];
-
-    if (diarys.length === 0) {
-      return res.status(200).json({
-        message: "해당 날짜에 다이어리가 등록되어 있지 않습니다.",
-        code: ResponseCode.FAILURE,
-      });
-    }
-
-    diary = diarys[0];
-  }
-
   // 투두 불러오기
   const todos: Todo[] = [];
   {
@@ -89,7 +64,7 @@ const getDiaryDetail: RequestHandler<
 
     const queryResult = await getTodoChecklistsByDate({
       userId,
-      date: req.query.diaryDate,
+      date: req.query.todoDate,
     });
     const todoChecklists = queryResult[0];
 
@@ -122,14 +97,10 @@ const getDiaryDetail: RequestHandler<
   }
 
   return res.status(200).json({
-    diaryTitle: diary.title,
-    diaryEmotion: diary.emotion,
-    diaryDetail: diary.content,
-    diaryImage: diary.picture,
     todos,
-    message: "다이어리 상세 조회에 성공하였습니다.",
+    message: "투두 조회에 성공하였습니다.",
     code: ResponseCode.SUCCESS,
   });
 };
 
-export default getDiaryDetail;
+export default getTodo;
