@@ -3,7 +3,7 @@ import db from "model";
 import type { ResultSetHeader } from "mysql2";
 
 interface CreateTodoChecklistProps {
-  userId: number;
+  userId: string;
   categoryId: number;
   content: string;
   isDone: boolean;
