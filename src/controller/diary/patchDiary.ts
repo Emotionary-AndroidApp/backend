@@ -5,6 +5,7 @@ import ResponseCode from "constant/responseCode";
 import editDiary from "model/diary/editDiary";
 
 import diarySchema from "schema/diary";
+import commonSchema from "schema/common";
 
 import type { RequestHandler } from "express";
 import type { NecessaryResponse } from "api";
@@ -13,7 +14,7 @@ import type { NecessaryResponse } from "api";
  * @description 다이어리 수정 요청 body
  */
 export const PatchDiaryRequestBody = z.object({
-  diaryDate: diarySchema.date,
+  diaryDate: commonSchema.date,
   diaryEmotion: diarySchema.emotion.optional(),
   diaryTitle: diarySchema.title.optional(),
   diaryDetail: diarySchema.detail.optional(),

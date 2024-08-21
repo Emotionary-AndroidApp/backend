@@ -10,7 +10,7 @@ import getTodoChecklistsByDate, {
 import type { RequestHandler } from "express";
 import type { NecessaryResponse } from "api";
 
-import diarySchema from "schema/diary";
+import commonSchema from "schema/common";
 
 import type { RowDataPacket } from "mysql2/typings/mysql/lib/protocol/packets/RowDataPacket";
 import type { DiaryRow } from "db";
@@ -19,7 +19,7 @@ import type { DiaryRow } from "db";
  * @description 다이어리 상세 조회 요청 query
  */
 export const GetDiaryDetailQuery = z.object({
-  diaryDate: diarySchema.date,
+  diaryDate: commonSchema.date,
 });
 
 interface Todo {

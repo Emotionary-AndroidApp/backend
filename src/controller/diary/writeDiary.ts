@@ -11,6 +11,7 @@ import ServerError from "error/ServerError";
 import DuplicationError from "error/user/DuplicationError";
 
 import diarySchema from "schema/diary";
+import commonSchema from "schema/common";
 
 import type { RequestHandler } from "express";
 import type { NecessaryResponse } from "api";
@@ -19,7 +20,7 @@ import type { NecessaryResponse } from "api";
  * @description 다이어리 등록 요청 body
  */
 export const WriteDiaryRequestBody = z.object({
-  diaryDate: diarySchema.date,
+  diaryDate: commonSchema.date,
   diaryEmotion: diarySchema.emotion,
   diaryTitle: diarySchema.title,
   diaryDetail: diarySchema.detail,
