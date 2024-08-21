@@ -11,7 +11,6 @@ const todoRouter = express.Router();
 // 컨트롤러
 todoRouter.get(
   "/",
-  express.json(),
   requireUserToken,
   validateRequest({ query: getTodoQuery }),
   getTodo

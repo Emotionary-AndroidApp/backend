@@ -46,14 +46,12 @@ diaryRouter.patch(
 );
 diaryRouter.get(
   "/detail",
-  express.json(),
   requireUserToken,
   validateRequest({ query: GetDiaryDetailQuery }),
   getDiaryDetail
 );
 diaryRouter.get(
   "/",
-  express.json(),
   requireUserToken,
   validateRequest({ query: SearchDiaryQuery }),
   searchDiary
