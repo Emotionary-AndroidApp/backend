@@ -49,7 +49,7 @@ const removeTodoCategory: RequestHandler<
     });
 
   return res.status(200).json({
-    message: "투두 카테고리 등록에 성공하였습니다.",
+    message: "투두 카테고리 삭제에 성공하였습니다.",
     code: ResponseCode.SUCCESS,
   });
 };

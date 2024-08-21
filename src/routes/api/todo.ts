@@ -17,6 +17,9 @@ import removeTodoCategory, {
 import addTodoChecklist, {
   AddTodoChecklistBody,
 } from "controller/todo/addTodoChecklist";
+import removeTodoChecklist, {
+  RemoveTodoChecklistBody,
+} from "controller/todo/removeTodoChecklist";
 
 const todoRouter = express.Router();
 
@@ -53,6 +56,13 @@ todoRouter.post(
   express.json(),
   validateRequest({ body: AddTodoChecklistBody }),
   addTodoChecklist
+);
+todoRouter.delete(
+  "/checklist",
+  requireUserToken,
+  express.json(),
+  validateRequest({ body: RemoveTodoChecklistBody }),
+  removeTodoChecklist
 );
 
 // 404 핸들 미들웨어

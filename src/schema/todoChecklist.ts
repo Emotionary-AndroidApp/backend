@@ -6,10 +6,8 @@ const content = z.string().min(1).max(100);
 
 const isDone = z.boolean();
 
-const todoChecklistSchema = {
-  categoryId,
-  content,
-  isDone,
-};
+const todoChecklistId = z.number().int().nonnegative();
+
+const todoChecklistSchema = { todoChecklistId, categoryId, content, isDone };
 
 export default todoChecklistSchema;
