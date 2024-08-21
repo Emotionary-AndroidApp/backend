@@ -3,6 +3,7 @@ import express from "express";
 import authRouter from "./auth";
 import diaryRouter from "./diary";
 import userRouter from "./user";
+import todoRouter from "./todo";
 
 import errorHandler from "middleware/error/errorHandler";
 import userErrorHandler from "middleware/error/userErrorHandler";
@@ -17,6 +18,7 @@ const apiRouter = express.Router();
 apiRouter.use("/user", trimBodyString, userRouter);
 apiRouter.use("/auth", trimBodyString, authRouter);
 apiRouter.use("/diary", trimBodyString, diaryRouter);
+apiRouter.use("/todo", trimBodyString, todoRouter);
 
 // 404 핸들 미들웨어
 apiRouter.use(apiNotFoundErrorHandler);
