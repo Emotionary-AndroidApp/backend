@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-const name = z.string().min(2).max(20);
+const title = z.string().min(2).max(20);
 
 const todoCategorySchema = {
-  name,
+  title,
 };
 
 export default todoCategorySchema;

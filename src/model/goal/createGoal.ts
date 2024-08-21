@@ -10,7 +10,7 @@ interface CreateGoalProps {
   end: string;
 }
 
-export default async function createTodoCategory({
+export default async function createGoal({
   userId,
   name,
   isMain,
