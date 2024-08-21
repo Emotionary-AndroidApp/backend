@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import ResponseCode from "constant/responseCode";
 
-import createGoal from "model/goal/createGoal";
+import createTodoCategory from "model/todo/createTodoCategory";
 
 import ServerError from "error/ServerError";
 import DuplicationError from "error/user/DuplicationError";
@@ -12,7 +12,6 @@ import todoCategorySchema from "schema/todoCategory";
 
 import type { RequestHandler } from "express";
 import type { NecessaryResponse } from "api";
-import createTodoCategory from "model/todo/createTodoCategory";
 
 /**
  * @description 투두 카테고리 등록 요청 body
