@@ -8,34 +8,35 @@ import createTodoChecklist from "model/todo/createTodoChecklist";
 import ServerError from "error/ServerError";
 import DuplicationError from "error/user/DuplicationError";
 
-import todoCategorySchema from "schema/todoCategory";
-import todoChecklistSchema from "schema/todoChecklist";
+import goalSchema from "schema/goal";
+import goalChecklistSchema from "schema/goalChecklist";
 
 import type { RequestHandler } from "express";
 import type { NecessaryResponse } from "api";
+import createGoalChecklist from "model/goal/createGoalChecklist";
 
 /**
- * @description 투두 체크리스트 등록 요청 body
+ * @description 목표 체크리스트 등록 요청 body
  */
-export const AddTodoChecklistBody = z.object({
-  todoCategoryID: todoCategorySchema.todoCategoryId,
-  todoChecklist: todoChecklistSchema.content,
+export const AddGoalChecklistBody = z.object({
+  goalID: goalSchema.goalId,
+  goalChecklist: goalChecklistSchema.content,
 });
 
 /**
- * @description 투두 체크리스트 등록 응답 body
+ * @description 목표 체크리스트 등록 응답 body
  */
 interface ResponseBody extends NecessaryResponse {
   todoChecklistID: number;
 }
 
 /**
- * @description 투두 체크리스트 등록 요청을 처리하는 핸들러
+ * @description 목표 체크리스트 등록 요청을 처리하는 핸들러
  */
-const addTodoChecklist: RequestHandler<
+const addGoalChecklist: RequestHandler<
   {},
   Partial<ResponseBody>,
-  z.infer<typeof AddTodoChecklistBody>
+  z.infer<typeof AddGoalChecklistBody>
 > = async function (req, res, next) {
   // 아이디 불러오기
   const userId = req.userId;
@@ -45,20 +46,19 @@ const addTodoChecklist: RequestHandler<
       code: ResponseCode.FAILURE,
     });
 
-  let todoChecklistId: number;
+  let goalChecklistId: number;
   try {
-    const queryResult = await createTodoChecklist({
+    const queryResult = await createGoalChecklist({
       userId: parseInt(userId),
-      categoryId: req.body.todoCategoryID,
-      content: req.body.todoChecklist,
+      goalId: req.body.goalID,
+      content: req.body.goalChecklist,
       isDone: false,
-      date: new Date().toISOString().split("T")[0],
     });
 
     if (queryResult[0].affectedRows === 0)
-      return next(new ServerError("투두 카테고리에 대한 권한이 없습니다."));
+      return next(new ServerError("목표 주제에 대한 권한이 없습니다."));
 
-    todoChecklistId = queryResult[0].insertId;
+    goalChecklistId = queryResult[0].insertId;
   } catch (error) {
     if (error instanceof Error) {
       if ((error as QueryError).code === "ER_DUP_ENTRY")
@@ -68,10 +68,10 @@ const addTodoChecklist: RequestHandler<
   }
 
   return res.status(200).json({
-    message: "투두 카테고리 등록에 성공하였습니다.",
-    todoChecklistID: todoChecklistId,
+    message: "목표 체크리스트 등록에 성공하였습니다.",
+    todoChecklistID: goalChecklistId,
     code: ResponseCode.SUCCESS,
   });
 };
 
-export default addTodoChecklist;
+export default addGoalChecklist;

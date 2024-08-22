@@ -13,6 +13,9 @@ import getFinishedGoal, {
 import getGoals, { GetGoalsQuery } from "controller/goal/getGoals";
 import addGoal, { AddGoalBody } from "controller/goal/addGoal";
 import removeGoal, { RemoveGoalBody } from "controller/goal/removeGoal";
+import addGoalChecklist, {
+  AddGoalChecklistBody,
+} from "controller/goal/addGoalChecklist";
 
 const goalRouter = express.Router();
 
@@ -48,6 +51,13 @@ goalRouter.delete(
   express.json(),
   validateRequest({ body: RemoveGoalBody }),
   removeGoal
+);
+goalRouter.post(
+  "/checklist",
+  requireUserToken,
+  express.json(),
+  validateRequest({ body: AddGoalChecklistBody }),
+  addGoalChecklist
 );
 
 // 404 핸들 미들웨어
