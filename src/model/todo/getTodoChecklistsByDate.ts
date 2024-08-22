@@ -38,7 +38,7 @@ export default async function getTodoChecklistsByDate({
           tcat.userId = ? AND
           tc.date = ?;
     `,
-    { userId, date }
+    [userId, date]
   );
 
   return queryResult;
