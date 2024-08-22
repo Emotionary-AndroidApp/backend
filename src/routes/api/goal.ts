@@ -10,6 +10,7 @@ import getProgressingGoal, {
 import getFinishedGoal, {
   getFinishedGoalQuery,
 } from "controller/goal/getFinishedGoal";
+import getGoals, { GetGoalsQuery } from "controller/goal/getGoals";
 
 const goalRouter = express.Router();
 
@@ -25,6 +26,12 @@ goalRouter.get(
   requireUserToken,
   validateRequest({ query: getFinishedGoalQuery }),
   getFinishedGoal
+);
+goalRouter.get(
+  "/",
+  requireUserToken,
+  validateRequest({ query: GetGoalsQuery }),
+  getGoals
 );
 
 // 404 핸들 미들웨어

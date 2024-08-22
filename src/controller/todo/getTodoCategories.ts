@@ -18,7 +18,7 @@ export const GetTodoCategoriesQuery = z.object({});
 interface ResponseBody extends NecessaryResponse {
   todoCategories: {
     todoCategory: string;
-    todoCategoryID: string;
+    todoCategoryID: number;
   }[];
 }
 
@@ -43,14 +43,13 @@ const getTodoCategories: RequestHandler<
   const queryResult = await getTodoCategories_({
     userId,
   });
-  const todoCategories = queryResult[0];
-  const searchResult = todoCategories.map((todoCategory) => ({
+  const todoCategories = queryResult[0].map((todoCategory) => ({
     todoCategory: todoCategory.name,
-    todoCategoryID: todoCategory.id.toString(),
+    todoCategoryID: todoCategory.id,
   }));
 
   return res.status(200).json({
-    todoCategories: searchResult,
+    todoCategories,
     message: "투두 카테고리 조회에 성공하였습니다.",
     code: ResponseCode.SUCCESS,
   });

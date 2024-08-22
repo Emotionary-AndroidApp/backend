@@ -4,6 +4,7 @@ import authRouter from "./auth";
 import diaryRouter from "./diary";
 import userRouter from "./user";
 import todoRouter from "./todo";
+import goalRouter from "./goal";
 
 import errorHandler from "middleware/error/errorHandler";
 import userErrorHandler from "middleware/error/userErrorHandler";
@@ -19,6 +20,7 @@ apiRouter.use("/user", trimBodyString, userRouter);
 apiRouter.use("/auth", trimBodyString, authRouter);
 apiRouter.use("/diary", trimBodyString, diaryRouter);
 apiRouter.use("/todo", trimBodyString, todoRouter);
+apiRouter.use("/goal", trimBodyString, goalRouter);
 
 // 404 핸들 미들웨어
 apiRouter.use(apiNotFoundErrorHandler);
