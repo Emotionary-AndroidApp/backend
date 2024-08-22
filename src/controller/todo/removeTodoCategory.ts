@@ -17,12 +17,12 @@ export const RemoveTodoCategoryBody = z.object({
 });
 
 /**
- * @description 투두 카테고리 등록 응답 body
+ * @description 투두 카테고리 삭제 응답 body
  */
 interface ResponseBody extends NecessaryResponse {}
 
 /**
- * @description 투두 카테고리 등록 요청을 처리하는 핸들러
+ * @description 투두 카테고리 삭제 요청을 처리하는 핸들러
  */
 const removeTodoCategory: RequestHandler<
   {},
