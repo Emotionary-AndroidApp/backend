@@ -2,18 +2,16 @@ import { z } from "zod";
 
 import ResponseCode from "constant/responseCode";
 
-import getProgressingGoal_, {
-  ProgressingGoalRow,
-} from "model/goal/getProgressingGoal";
+import getFinishedGoal_, { FinishedGoalRow } from "model/goal/getFinishedGoal";
 
 import type { RowDataPacket } from "mysql2";
 import type { RequestHandler } from "express";
 import type { NecessaryResponse } from "api";
 
 /**
- * @description 진행 중 목표 조회 요청 query
+ * @description 지난 목표 조회 요청 query
  */
-export const getProgressingGoalQuery = z.object({});
+export const getFinishedGoalQuery = z.object({});
 
 /**
  * @description 진행 중 목표 조회 응답 body
@@ -37,11 +35,11 @@ interface Checklist {
 /**
  * @description 진행 중 목표 조회 요청을 처리하는 핸들러
  */
-const getProgressingGoal: RequestHandler<
+const getFinishedGoal: RequestHandler<
   {},
   Partial<ResponseBody>,
   {},
-  z.infer<typeof getProgressingGoalQuery>
+  z.infer<typeof getFinishedGoalQuery>
 > = async function (req, res, next) {
   // 아이디 불러오기
   const userId = req.userId;
@@ -54,9 +52,9 @@ const getProgressingGoal: RequestHandler<
   // 목표 불러오기
   const goals: Goal[] = [];
   {
-    const table: Record<string, (ProgressingGoalRow & RowDataPacket)[]> = {};
+    const table: Record<string, (FinishedGoalRow & RowDataPacket)[]> = {};
 
-    const queryResult = await getProgressingGoal_({
+    const queryResult = await getFinishedGoal_({
       userId,
       date: new Date().toISOString().split("T")[0],
     });
@@ -92,9 +90,9 @@ const getProgressingGoal: RequestHandler<
 
   return res.status(200).json({
     goals,
-    message: "진행 중 목표 조회에 성공하였습니다.",
+    message: "지난 목표 조회에 성공하였습니다.",
     code: ResponseCode.SUCCESS,
   });
 };
 
-export default getProgressingGoal;
+export default getFinishedGoal;
