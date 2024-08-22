@@ -6,10 +6,13 @@ const content = z.string().min(1).max(100);
 
 const isDone = z.boolean();
 
+const goalChecklistId = z.number().int().nonnegative();
+
 const goalChecklistSchema = {
-  categoryId: goalId,
+  goalId,
   content,
   isDone,
+  goalChecklistId,
 };
 
 export default goalChecklistSchema;
