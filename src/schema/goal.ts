@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const name = z.string().min(2).max(20);
+const title = z.string().min(2).max(20);
 
 const isMain = z.boolean();
 
@@ -20,7 +20,7 @@ const date = z
   );
 
 const goalSchema = {
-  name,
+  title,
   isMain,
   start: date,
   end: date,
