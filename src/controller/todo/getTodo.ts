@@ -6,12 +6,11 @@ import getTodoChecklistsByDate, {
   TodoChecklistByDateRow,
 } from "model/todo/getTodoChecklistsByDate";
 
-import type { RequestHandler } from "express";
-import type { NecessaryResponse } from "api";
-
 import commonSchema from "schema/common";
 
-import type { RowDataPacket } from "mysql2/typings/mysql/lib/protocol/packets/RowDataPacket";
+import type { RowDataPacket } from "mysql2";
+import type { RequestHandler } from "express";
+import type { NecessaryResponse } from "api";
 
 /**
  * @description 투두 조회 요청 query
