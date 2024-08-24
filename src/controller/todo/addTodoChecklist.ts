@@ -48,7 +48,7 @@ const addTodoChecklist: RequestHandler<
   let todoChecklistId: number;
   try {
     const queryResult = await createTodoChecklist({
-      userId: parseInt(userId),
+      userId,
       categoryId: req.body.todoCategoryID,
       content: req.body.todoChecklist,
       isDone: false,

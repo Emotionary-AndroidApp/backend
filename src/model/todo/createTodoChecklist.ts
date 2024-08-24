@@ -3,7 +3,7 @@ import db from "model";
 import type { ResultSetHeader } from "mysql2";
 
 interface CreateTodoChecklistProps {
-  userId: number;
+  userId: string;
   categoryId: number;
   content: string;
   isDone: boolean;
@@ -25,7 +25,7 @@ export default async function createTodoChecklist({
       WHERE EXISTS (
         SELECT 1
         FROM todo_category
-        WHERE categoryId = ?
+        WHERE id = ?
         AND userId = ?
       )
     `,
