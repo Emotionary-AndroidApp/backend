@@ -71,7 +71,7 @@ const addTodoChecklist: RequestHandler<
   }
 
   return res.status(200).json({
-    message: "투두 카테고리 등록에 성공하였습니다.",
+    message: "투두 체크리스트 등록에 성공하였습니다.",
     todoChecklistID: todoChecklistId,
     code: ResponseCode.SUCCESS,
   });
