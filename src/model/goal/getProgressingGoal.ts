@@ -32,11 +32,10 @@ export default async function getProgressingGoal({
       JOIN 
           goal g
       ON 
-          gc.goalID = g.id
+          gc.goalId = g.id
       WHERE
           g.userId = ? AND
-          g.start <= ? AND
-          ? <= g.end;
+          (? BETWEEN g.start AND g.end)
     `,
     [userId, date, date]
   );
