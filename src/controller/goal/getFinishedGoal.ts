@@ -61,16 +61,16 @@ const getFinishedGoal: RequestHandler<
     const goalChecklists = queryResult[0];
 
     // table 생성
-    goalChecklists.forEach((todoChecklist) => {
-      const goalName = todoChecklist.categoryName;
+    goalChecklists.forEach((goalChecklist) => {
+      const goalName = goalChecklist.goalName;
 
       // table에 목표 이름이 없으면 새 배열 할당
       if (table[goalName] === undefined) {
-        table[goalName] = [todoChecklist];
+        table[goalName] = [goalChecklist];
       }
       // 있으면 추가
       else {
-        table[goalName].push(todoChecklist);
+        table[goalName].push(goalChecklist);
       }
     });
 
