@@ -21,7 +21,9 @@ import type { NecessaryResponse } from "api";
  */
 export const WriteDiaryRequestBody = z.object({
   diaryDate: commonSchema.date,
-  diaryEmotion: diarySchema.emotion,
+  diaryEmotion: z
+    .string()
+    .refine((value) => diarySchema.emotion.parse(parseInt(value))),
   diaryTitle: diarySchema.title,
   diaryDetail: diarySchema.detail,
 });
@@ -57,7 +59,7 @@ const writeDiary: RequestHandler<
       userId,
       title: req.body.diaryTitle,
       content: req.body.diaryDetail,
-      emotion: req.body.diaryEmotion,
+      emotion: parseInt(req.body.diaryEmotion),
       date: req.body.diaryDate,
       picture: req.file ? `/file/diary/${pictureFileName}` : undefined,
     });
