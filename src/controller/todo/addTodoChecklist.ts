@@ -56,7 +56,10 @@ const addTodoChecklist: RequestHandler<
     });
 
     if (queryResult[0].affectedRows === 0)
-      return next(new ServerError("투두 카테고리에 대한 권한이 없습니다."));
+      return res.status(200).json({
+        message: "투두 카테고리가 존재하지 않습니다.",
+        code: ResponseCode.FAILURE,
+      });
 
     todoChecklistId = queryResult[0].insertId;
   } catch (error) {
