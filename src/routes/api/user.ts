@@ -10,6 +10,9 @@ import checkId, { CheckIdRequestQuery } from "controller/user/checkId";
 import checkName, { CheckNameRequestQuery } from "controller/user/checkName";
 import getHome, { GetHomeRequestQuery } from "controller/user/getHome";
 import getMy, { GetMyRequestQuery } from "controller/user/getMy";
+import patchProfile, {
+  PatchProfileRequestBody,
+} from "controller/user/patchProfile";
 
 const userRouter = express.Router();
 
@@ -56,6 +59,12 @@ userRouter.get(
   requireUserToken,
   validateRequest({ query: GetMyRequestQuery }),
   getMy
+);
+userRouter.patch(
+  "/",
+  upload.single("userProfile"),
+  validateRequest({ body: PatchProfileRequestBody }),
+  patchProfile
 );
 
 // 404 핸들 미들웨어
