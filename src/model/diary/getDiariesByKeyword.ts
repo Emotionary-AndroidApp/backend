@@ -16,7 +16,7 @@ export default async function getDiariesByKeyword({
 }: GetDiariesByKeywordProps) {
   let queryResult: [(DiaryRow & RowDataPacket)[], FieldPacket[]];
 
-  if (!keyword)
+  if (keyword)
     queryResult = await db.query<(DiaryRow & RowDataPacket)[]>(
       `
       SELECT
