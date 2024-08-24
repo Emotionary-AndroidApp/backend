@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import ResponseCode from "constant/responseCode";
 
-import createTodoChecklist from "model/todo/createTodoChecklist";
+import createGoalChecklist from "model/goal/createGoalChecklist";
 
 import ServerError from "error/ServerError";
 import DuplicationError from "error/user/DuplicationError";
@@ -13,7 +13,6 @@ import goalChecklistSchema from "schema/goalChecklist";
 
 import type { RequestHandler } from "express";
 import type { NecessaryResponse } from "api";
-import createGoalChecklist from "model/goal/createGoalChecklist";
 
 /**
  * @description 목표 체크리스트 등록 요청 body
@@ -49,7 +48,7 @@ const addGoalChecklist: RequestHandler<
   let goalChecklistId: number;
   try {
     const queryResult = await createGoalChecklist({
-      userId: parseInt(userId),
+      userId,
       goalId: req.body.goalID,
       content: req.body.goalChecklist,
       isDone: false,

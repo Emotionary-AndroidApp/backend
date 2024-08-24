@@ -3,7 +3,7 @@ import db from "model";
 import type { ResultSetHeader } from "mysql2";
 
 interface CreateGoalChecklistProps {
-  userId: number;
+  userId: string;
   goalId: number;
   content: string;
   isDone: boolean;
