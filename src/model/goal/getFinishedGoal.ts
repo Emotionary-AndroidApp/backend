@@ -25,7 +25,7 @@ export default async function getFinishedGoal({
           gc.content,
           gc.isDone,
           gc.createdAt,
-          g.name AS goalName
+          g.name AS goalName,
           g.isMain AS isMain
       FROM 
           goal_checklist gc
@@ -34,8 +34,8 @@ export default async function getFinishedGoal({
       ON 
           gc.goalID = g.id
       WHERE
-          gc.userId = ? AND
-          gc.date < ?;
+          g.userId = ? AND
+          g.end < ?;
     `,
     [userId, date]
   );
