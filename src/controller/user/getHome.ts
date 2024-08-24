@@ -19,11 +19,11 @@ export const GetHomeRequestQuery = z.object({
     .optional(),
   month: z
     .string()
-    .refine((value) => /^\d{2}$/.test(value))
+    .refine((value) => /^\d{1,2}$/.test(value))
     .optional(),
   day: z
     .string()
-    .refine((value) => /^\d{2}$/.test(value))
+    .refine((value) => /^\d{1,2}$/.test(value))
     .optional(),
 });
 
