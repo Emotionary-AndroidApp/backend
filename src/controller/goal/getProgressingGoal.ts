@@ -64,7 +64,7 @@ const getProgressingGoal: RequestHandler<
 
     // table 생성
     goalChecklists.forEach((goalChecklist) => {
-      const goalName = goalChecklist.categoryName;
+      const goalName = goalChecklist.goalName;
 
       // table에 목표 이름이 없으면 새 배열 할당
       if (table[goalName] === undefined) {
