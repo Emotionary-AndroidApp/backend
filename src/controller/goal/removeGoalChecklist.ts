@@ -13,7 +13,7 @@ import type { NecessaryResponse } from "api";
  * @description 목표 체크리스트 삭제 요청 body
  */
 export const RemoveGoalChecklistBody = z.object({
-  goalChecklistId: goalChecklistSchema.goalId,
+  goalChecklistID: goalChecklistSchema.goalId,
 });
 
 /**
@@ -38,7 +38,7 @@ const removeGoalChecklist: RequestHandler<
     });
 
   const queryResult = await deleteGoalChecklist({
-    id: req.body.goalChecklistId,
+    id: req.body.goalChecklistID,
     userId,
   });
 
