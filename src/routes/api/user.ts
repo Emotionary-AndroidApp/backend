@@ -62,6 +62,7 @@ userRouter.get(
 );
 userRouter.patch(
   "/",
+  requireUserToken,
   upload.single("userProfile"),
   validateRequest({ body: PatchProfileRequestBody }),
   patchProfile
