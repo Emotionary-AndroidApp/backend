@@ -69,7 +69,7 @@ const patchProfile: RequestHandler<
 
   try {
     const queryResult = await editUser({
-      userId: parseInt(userId),
+      userId,
       userPatch: {
         name: req.body.userName,
         picture: req.file ? `/file/user/${pictureFileName}` : undefined,

@@ -6,7 +6,7 @@ import type { UserRow } from "db";
 type UserPatch = Pick<UserRow, "password" | "name" | "picture">;
 
 interface EditUserProps {
-  userId: number;
+  userId: string;
   userPatch: Partial<UserPatch>;
 }
 
