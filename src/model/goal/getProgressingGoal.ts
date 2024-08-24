@@ -25,7 +25,7 @@ export default async function getProgressingGoal({
           gc.content,
           gc.isDone,
           gc.createdAt,
-          g.name AS goalName
+          g.name AS goalName,
           g.isMain AS isMain
       FROM 
           goal_checklist gc
@@ -34,9 +34,9 @@ export default async function getProgressingGoal({
       ON 
           gc.goalID = g.id
       WHERE
-          gc.userId = ? AND
-          gc.date <= ? AND
-          ? <= gc.date;
+          g.userId = ? AND
+          g.start <= ? AND
+          ? <= g.end;
     `,
     [userId, date, date]
   );
