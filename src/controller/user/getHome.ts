@@ -13,9 +13,18 @@ import getDiaryByDate from "model/diary/getDiaryByDate";
  * @description 홈 화면 조회 요청 query
  */
 export const GetHomeRequestQuery = z.object({
-  year: z.string().refine((value) => /^\d{4}$/.test(value)),
-  month: z.string().refine((value) => /^\d{2}$/.test(value)),
-  day: z.string().refine((value) => /^\d{2}$/.test(value)),
+  year: z
+    .string()
+    .refine((value) => /^\d{4}$/.test(value))
+    .optional(),
+  month: z
+    .string()
+    .refine((value) => /^\d{2}$/.test(value))
+    .optional(),
+  day: z
+    .string()
+    .refine((value) => /^\d{2}$/.test(value))
+    .optional(),
 });
 
 /**
