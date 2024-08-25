@@ -3,7 +3,8 @@ import { z } from "zod";
 
 import ResponseCode from "constant/responseCode";
 
-import createTodoCategory from "model/todo/createTodoCategory";
+import createGoal from "model/goal/createGoal";
+import disableMainGoal from "model/goal/disableMainGoal";
 
 import ServerError from "error/ServerError";
 import DuplicationError from "error/user/DuplicationError";
@@ -13,7 +14,6 @@ import goalSchema from "schema/goal";
 
 import type { RequestHandler } from "express";
 import type { NecessaryResponse } from "api";
-import createGoal from "model/goal/createGoal";
 
 /**
  * @description 목표 주제 등록 요청 body
@@ -59,6 +59,10 @@ const addGoal: RequestHandler<
       code: ResponseCode.FAILURE,
     });
 
+  // 대표 목표이면 기존의 대표 목표를 비활성화
+  if (req.body.goalMain) await disableMainGoal({ userId });
+
+  // 목표 주제 생성
   let goalId: number;
   try {
     const queryResult = await createGoal({
