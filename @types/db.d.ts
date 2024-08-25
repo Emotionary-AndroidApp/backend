@@ -15,7 +15,8 @@ declare module "db" {
    *   `name` VARCHAR(20) NOT NULL,
    *   `picture` VARCHAR(100),
    *   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-   *   PRIMARY KEY (`id`)
+   *   PRIMARY KEY (`id`),
+   *   UNIQUE (`name`)
    * );
    */
 
