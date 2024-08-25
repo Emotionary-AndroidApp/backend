@@ -40,5 +40,10 @@ export default async function getProgressingGoal({
     [userId, date, date]
   );
 
+  queryResult[0].forEach((checklist) => {
+    checklist.isDone = Boolean(checklist.isDone);
+    checklist.isMain = Boolean(checklist.isMain);
+  });
+
   return queryResult;
 }

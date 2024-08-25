@@ -41,5 +41,9 @@ export default async function getTodoChecklistsByDate({
     [userId, date]
   );
 
+  queryResult[0].forEach((checklist) => {
+    checklist.isDone = Boolean(checklist.isDone);
+  });
+
   return queryResult;
 }

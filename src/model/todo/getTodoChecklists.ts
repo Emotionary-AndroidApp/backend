@@ -17,5 +17,9 @@ export default async function getTodoChecklists({
     { userId, categoryId }
   );
 
+  queryResult[0].forEach((checklist) => {
+    checklist.isDone = Boolean(checklist.isDone);
+  });
+
   return queryResult;
 }

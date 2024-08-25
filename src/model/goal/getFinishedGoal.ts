@@ -40,5 +40,10 @@ export default async function getFinishedGoal({
     [userId, date]
   );
 
+  queryResult[0].forEach((checklist) => {
+    checklist.isDone = Boolean(checklist.isDone);
+    checklist.isMain = Boolean(checklist.isMain);
+  });
+
   return queryResult;
 }
